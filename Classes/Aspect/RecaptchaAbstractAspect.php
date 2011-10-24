@@ -10,10 +10,7 @@ require_once FLOW3_PATH_PACKAGES . 'Application/F2.Base/Resources/Private/PHP/re
  * Time: 19:05
  * To change this template use File | Settings | File Templates.
  */
-/**
- * @FLOW3\Aspect
- */
-class RecaptchaAspect {
+abstract class RecaptchaAbstractAspect {
     /**
 	 * @var \TYPO3\FLOW3\Utility\Environment
 	 * @FLOW3\Inject
@@ -23,10 +20,11 @@ class RecaptchaAspect {
     private $privatekey;
 
 
+    abstract public function recaptchaRequiredActions();
+
     /**
      * @param \TYPO3\FLOW3\AOP\JoinPointInterface $joinPoint
      * @return void
-     * @FLOW3\Before("F2\Base\Aspect\RecaptchaAspect->recaptchaRequiredActions")
      */
     public function validate(\TYPO3\FLOW3\AOP\JoinPointInterface $joinPoint){
         $arguments = $this->environment->getRawPostArguments();

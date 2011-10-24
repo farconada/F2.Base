@@ -1,8 +1,4 @@
-F2\Base\Service\UrlShortener\UrlShortenerInterface:
-  className: 'F2\Base\Service\UrlShortener\GooglUrlShortener'
-  scope: singleton
-
-F2\Base\Service\UrlShortener\GooglUrlShortener:
-  arguments:
-    1:
-      setting: F2.Base.googl.apikey
+#F2\Base\Service\UrlShortener\GooglUrlShortener:
+#  arguments:
+#    1:
+#      setting: F2.Base.googl.apikey

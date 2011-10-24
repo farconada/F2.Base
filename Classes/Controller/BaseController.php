@@ -66,7 +66,7 @@ class BaseController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 		try {
 			parent::processRequest($request, $response);
 		} catch (BaseException $exception) {
-			$this->redirect('exceptionHandler', 'Standard', NULL, array('exception' => $exception->getMessage()));
+			$this->redirect('exceptionHandler',NULL , NULL, array('exception' => $exception->getMessage()));
 		}
 	}
 
