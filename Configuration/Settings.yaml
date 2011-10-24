@@ -1,0 +1,9 @@
+F2:
+  Base:
+    ABTest:
+      enabled: n    #repuesta y/n
+      AlternativeTemplatesPath: '/var/www/html/bversion/Templates'
+      AlternativePartialsPath: '/var/www/html/bversion/Partials'
+      AlternativeLayoutsPath: '/var/www/html/bversion/Layouts'
+    googl:
+      apikey: AIzaSyCedTzucx9q8Dkr15lFaqjz-BL06vKDdwE

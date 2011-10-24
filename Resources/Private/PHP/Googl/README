@@ -1,0 +1,25 @@
+http://www.phpclasses.org/blog/package/6734/post/1-Google-URL-Shortener-PHP-Class.html
+
+
+Initialization
+
+Now lets dig into how to use the class. First you need to create an object of the class like this:
+
+    $goo = new Googl();
+If you have an API key for the goo.gl service, you should specify it as a constructor parameter. You need to request an API key in Google site.
+
+    $goo = new Googl( "API Key" );
+Get a short URL
+
+To get a short URL you need to call the get_short function and pass the URL as a string parameter like this:
+
+         $r = $goo->get_short("http://eslam.me");
+    print_r($r);
+Expand a short URL
+
+To expand a previously shortened URL call the get_long function passing the short url as first parameter.
+
+Pass true as the second parameter value if you want get the access analytics information for that URL. This will make the class return statistics about the number of times the URL was followed, the browsers and countries of the users that clicked on links with the short URL, as well the referrer pages where the short URL links were clicked.
+
+    $r = $goo->get_long("http://goo.gl/pTgKg", true);
+    print_r($r);
