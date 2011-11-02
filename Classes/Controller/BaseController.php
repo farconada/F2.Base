@@ -7,7 +7,7 @@ namespace F2\Base\Controller;
  *                                                                        */
 
 use TYPO3\FLOW3\Annotations as FLOW3;
-
+use F2\Base\Exception\BaseException as BaseException;
 /**
  * Standard controller for the F2.Base package 
  *
@@ -66,9 +66,19 @@ class BaseController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 		try {
 			parent::processRequest($request, $response);
 		} catch (BaseException $exception) {
-			$this->redirect('exceptionHandler',NULL , NULL, array('exception' => $exception->getMessage()));
+			$this->redirect('exceptionHandler','standard' , NULL, array('exception' => $exception->getMessage()));
 		}
 	}
+
+    /**
+     * Action para mostrar errores controlados
+     *
+     * @param string $exception
+     * @return void
+     */
+    public function exceptionHandlerAction($exception) {
+        $this->view->assign('exception',$exception);
+    }
 
     /**
 	 * Funcion a ejecutar antes de cualquier action
