@@ -29,14 +29,14 @@ class GooglUrlShortener implements UrlShortenerInterface
     }
 
     /**
-     * Devuelve una url larga a partir de una corta
+     * Devuelve una url larga a partir de una corta y sus analytics
      *
      * @param $shortUrl
-     * @return string
+     * @return array
      */
     public function getLong($shortUrl)
     {
-        // TODO: Implement getLong() method.
+        $this->googl->get_long($shortUrl,true);
     }
 
     /**
