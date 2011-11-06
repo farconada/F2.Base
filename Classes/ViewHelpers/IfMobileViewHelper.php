@@ -7,7 +7,7 @@ namespace F2\Base\ViewHelpers;
  * Time: 18:37
  * To change this template use File | Settings | File Templates.
  */
- class IfMobileHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
+ class IfMobileViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
 
 	/**
 	 * renders <f:then> child if mobile is true, otherwise renders <f:else> child.

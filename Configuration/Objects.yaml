@@ -2,3 +2,7 @@ TYPO3\FLOW3\MVC\Controller\NotFoundController:
   properties:
     notFoundView:
         object: F2\Base\View\NotFoundView
+F2\Base\View\TemplateFallbackView:
+  properties:
+    renderingContext:
+      object: TYPO3\Fluid\Core\Rendering\RenderingContext
