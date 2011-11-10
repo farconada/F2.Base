@@ -75,8 +75,12 @@ class BaseController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 	}
 
     private function isMobileBrowser() {
-        $isMobile = preg_match('/(iPhone|IEMobile|Windows CE|NetFront|PlayStation|PLAYSTATION|like Mac OS X|MIDP|UP\.Browser|Symbian|Nintendo|Android)/', $_SERVER['HTTP_USER_AGENT']);
-        return $isMobile > 0;
+        $isMobileBrowser = preg_match('/(iPhone|IEMobile|Windows CE|NetFront|PlayStation|PLAYSTATION|like Mac OS X|MIDP|UP\.Browser|Symbian|Nintendo|Android)/', $_SERVER['HTTP_USER_AGENT']);
+        if($this->request->hasArgument('fullWeb')){
+            $_SESSION['fullWeb'] = $this->request->getArgument('fullWeb');
+        }
+        $fullWeb = isset($_SESSION['fullWeb'])? $_SESSION['fullWeb']: FALSE;
+        return (($isMobileBrowser > 0)&& !$fullWeb);
     }
 
     /**
@@ -95,6 +99,7 @@ class BaseController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 	 * @return void
 	 */
 	protected function initializeAction() {
+
         $this->defaultViewObjectName = 'F2\Base\View\TemplateFallbackView';
 		parent::initializeAction();
         $this->mapSettings($this->settings);
