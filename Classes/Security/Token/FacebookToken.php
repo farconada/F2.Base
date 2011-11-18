@@ -35,11 +35,6 @@ class FacebookToken implements \TYPO3\FLOW3\Security\Authentication\TokenInterfa
 	 */
 	protected $usuarioRepository;
 
-	public function __construct($fbAppId, $fbSecret) {
-        $this->facebookAppId = $fbAppId;
-        $this->facebookSecretKey = $fbSecret;
-    }
-
 	/**
 	 * @var \TYPO3\FLOW3\Utility\Environment
 	 */
@@ -283,6 +278,20 @@ class FacebookToken implements \TYPO3\FLOW3\Security\Authentication\TokenInterfa
 		}
 		return array();
 	}
-}
 
-?>
+    public function setFacebookAppId($facebookAppId) {
+        $this->facebookAppId = $facebookAppId;
+    }
+
+    public function getFacebookAppId() {
+        return $this->facebookAppId;
+    }
+
+    public function setFacebookSecretKey($facebookSecretKey) {
+        $this->facebookSecretKey = $facebookSecretKey;
+    }
+
+    public function getFacebookSecretKey() {
+        return $this->facebookSecretKey;
+    }
+}
