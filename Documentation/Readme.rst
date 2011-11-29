@@ -107,3 +107,76 @@ La version b de la pagina se activa usando los templates alternativos cuando se 
 processRequest(\TYPO3\FLOW3\MVC\RequestInterface $request, \TYPO3\FLOW3\MVC\ResponseInterface $response)
 =========================================================================================================
 Este metodo se sobreescribe para capturar las excepciones de tipo BaseException y redirige al action **exceptionHandler** que debe ser implementado por el controlador
+
+Indexacion de objetos
+---------------------------------
+Este apartado se refiere al sistema de indexacion de objetos en lucene o similiar para tener busquedas fulltext
+
+Las clases relativas a la indexacion de objetos esta en **Classes/Service/Index/**
+
+Uso
+================
+La indexacion de objetos funciona de la siguiente manera:
+La persistencia de objetos se hace mediante Doctrine2. Doctrine ofrece un mecanismo de eventos.
+Para engancharse a los eventos de Doctrine hay que implementar la clase **DoctrineEventListener** para la indexacion esto se hace en la clase **IndexerListener**
+Esta clase se pasa al entity manager::
+
+    /**
+     * @var \F2\Base\Service\Index\DoctrineEventListenerInterface
+     * @FLOW3\Inject
+     */
+    protected $doctrineEventListener;
+    
+    protected function initializeAction() {
+        parent::initializeAction();
+
+        //Event listener para indexacion de objetos
+        $entityManagerFactory = $this->objectManager->get('\TYPO3\FLOW3\Persistence\Doctrine\EntityManagerFactory');
+        $entityManager = $entityManagerFactory->create();
+        $entityManager->getEventManager()->addEventListener(
+            array(\Doctrine\ORM\Events::postUpdate, \Doctrine\ORM\Events::postPersist, \Doctrine\ORM\Events::preRemove), $this->doctrineEventListener
+        );
+        $this->persistenceManager->injectEntityManager($entityManager);
+
+    }
+
+*Se podria prescindir de los eventos de doctrine pero intonces habria que llamar al IndexManager manualmente*
+
+
+Dentro del IndexerListerner hay otro objeto de tipo **IndexManagerInterface** la implementacion de este objeto tiene la funcion de crear el indice, indexar objetos, eliminarlos del indice, y actualizarlos.
+Este objeto puede gestionar un indice de tipo lucene o de otro tipo como Solr ElasticSearch o otro.
+**LuceneIndex implementa la interfaz IndexManagerInterface para gestionar indices lucene en un directorio local**
+
+Para buscar objetos hay que user una implementacion de **IndexSearchInterface** ::
+
+    public function find($type, $query);
+
+El parametro type es el nombre de clase (como el que devuelve get_class() ) y se usa para buscar objetos de ese tipo, el parametro es obligatorio
+
+
+Objetos a indexar
+======================================
+*Solo se pueden usar objetos de Modelo*
+Los objetos que van a ser indexados tienen que implementar la interfaz **IndexableModel** que define un metodo *getIdentifier** que devuelve un string con un identificador unico del objeto.
+Este identificador tiene que ser el identificador del objeto para la capa de persistencia, por ejemplo::
+
+    public function getIdentifier() {
+        return $this->FLOW3_Persistence_Identifier;
+    }
+
+Los objetos a indexar emplean anotaciones para determinar como indexarse **use F2\Base\Annotations as F2;**
+A nivel de clase se puede emplar la siguiente anotacion::
+
+    @F2\Index(defaultField="texto")
+
+Como su nombre indica especifica el campo en que buscar por defecto
+
+A nivel de propiedad se pueden especificar anotaciones de este tipo::
+
+    @F2\Index(type="text")
+
+El parametro *type* puede ser text|keyword|unstored|date paraa indicar el tipo de campo. Tambien hay otros parametros: *boost*, que es un numero de tipo float para indicar la priorizacion del campo y *html* que es un boolean para indicar si hay que eliminar los tags de html. Ejemplo::
+
+    @F2\Index(type="text",boost=1.5, html=TRUE)
+
+
