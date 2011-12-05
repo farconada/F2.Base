@@ -1,6 +1,10 @@
 <?php
 namespace F2\Base\ViewHelpers;
+use TYPO3\FLOW3\Annotations as FLOW3;
 
+/**
+ * @FLOW3\Scope("singleton")
+ */
 class SumViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
