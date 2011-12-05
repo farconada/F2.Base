@@ -180,3 +180,4 @@ El parametro *type* puede ser text|keyword|unstored|date paraa indicar el tipo d
     @F2\Index(type="text",boost=1.5, html=TRUE)
 
 
+
