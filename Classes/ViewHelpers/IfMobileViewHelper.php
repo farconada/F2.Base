@@ -16,7 +16,7 @@ namespace F2\Base\ViewHelpers;
 	 * @api
 	 */
 	public function render() {
-        $isMobile = preg_match('/(iPhone|IEMobile|Windows CE|NetFront|PlayStation|PLAYSTATION|like Mac OS X|MIDP|UP\.Browser|Symbian|Nintendo|Android)/', $_SERVER['HTTP_USER_AGENT']);
+        $isMobile =  \F2\Base\Service\MobileUtilsService::isMobileBrowser($_SERVER['HTTP_USER_AGENT']);
 		if ($isMobile) {
 			return $this->renderThenChild();
 		} else {
