@@ -1,9 +1,17 @@
-F2:
-  Base:
-    ABTest:
-      enabled: n    #repuesta y/n
-      AlternativeTemplatesPath: '/var/www/html/bversion/Templates'
-      AlternativePartialsPath: '/var/www/html/bversion/Partials'
-      AlternativeLayoutsPath: '/var/www/html/bversion/Layouts'
-    googl:
-      apikey: AIzaSyCedTzucx9q8Dkr15lFaqjz-BL06vKDdwE
+#F2:
+#  Base:
+#    ABTest:
+#      enabled: n    #repuesta y/n
+#      AlternativeTemplatesPath: '/var/www/html/bversion/Templates'
+#      AlternativePartialsPath: '/var/www/html/bversion/Partials'
+#      AlternativeLayoutsPath: '/var/www/html/bversion/Layouts'
+#    googl:
+#      apikey: AIzaSyCedTzucx9q8Dkr15lFaqjz-BL06vKDdwE
+#TYPO3:
+#
+#  FLOW3:
+#    error:
+#      exceptionHandler:
+#        className: 'F2\Base\Error\ProductionExceptionHandler'
+#      errorHandler:
+#        exceptionalErrors: [%E_USER_ERROR%, %E_RECOVERABLE_ERROR%, %E_WARNING%, %E_NOTICE%, %E_USER_WARNING%, %E_USER_NOTICE%, %E_STRICT%]

@@ -7,7 +7,7 @@ namespace F2\Base\Controller;
  *                                                                        */
 
 use TYPO3\FLOW3\Annotations as FLOW3;
-
+use F2\Base\Exception\BaseException as BaseException;
 /**
  * Standard controller for the F2.Base package 
  *
@@ -53,6 +53,10 @@ class BaseController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
         } else {
             parent::initializeView($view);
         }
+
+        if ($this->view instanceof  \F2\Base\View\TemplateFallbackView && $this->shouldRenderMobileVersion()) {
+            $this->view->setPreferredFormat('mhtml');
+        }
 	}
 
     /**
@@ -66,9 +70,28 @@ class BaseController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 		try {
 			parent::processRequest($request, $response);
 		} catch (BaseException $exception) {
-			$this->redirect('exceptionHandler', 'Standard', NULL, array('exception' => $exception->getMessage()));
+			$this->redirect('exceptionHandler','standard' , NULL, array('exception' => $exception->getMessage()));
 		}
 	}
+
+    private function shouldRenderMobileVersion() {
+        $isMobileBrowser =  \F2\Base\Service\MobileUtilsService::isMobileBrowser($_SERVER['HTTP_USER_AGENT']);
+        if($this->request->hasArgument('fullWeb')){
+            $_SESSION['fullWeb'] = $this->request->getArgument('fullWeb');
+        }
+        $fullWeb = isset($_SESSION['fullWeb'])? $_SESSION['fullWeb']: FALSE;
+        return (($isMobileBrowser > 0)&& !$fullWeb);
+    }
+
+    /**
+     * Action para mostrar errores controlados
+     *
+     * @param string $exception
+     * @return void
+     */
+    public function exceptionHandlerAction($exception) {
+        $this->view->assign('exception',$exception);
+    }
 
     /**
 	 * Funcion a ejecutar antes de cualquier action
@@ -76,6 +99,8 @@ class BaseController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 	 * @return void
 	 */
 	protected function initializeAction() {
+
+        $this->defaultViewObjectName = 'F2\Base\View\TemplateFallbackView';
 		parent::initializeAction();
         $this->mapSettings($this->settings);
 	}

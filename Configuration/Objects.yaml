@@ -1,8 +1,8 @@
-F2\Base\Service\UrlShortener\UrlShortenerInterface:
-  className: 'F2\Base\Service\UrlShortener\GooglUrlShortener'
-  scope: singleton
-
-F2\Base\Service\UrlShortener\GooglUrlShortener:
-  arguments:
-    1:
-      setting: F2.Base.googl.apikey
+TYPO3\FLOW3\MVC\Controller\NotFoundController:
+  properties:
+    notFoundView:
+        object: F2\Base\View\NotFoundView
+F2\Base\View\TemplateFallbackView:
+  properties:
+    renderingContext:
+      object: TYPO3\Fluid\Core\Rendering\RenderingContext
