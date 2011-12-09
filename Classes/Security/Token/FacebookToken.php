@@ -20,20 +20,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class FacebookToken implements \TYPO3\FLOW3\Security\Authentication\TokenInterface {
     private $facebookAppId;
     private $facebookSecretKey;
-	/**
-	 * Factoria de Usuarios
-	 * @FLOW3\Inject
-	 * @var \F2\SLists\Domain\Model\UsuarioFactory
-	 */
-	protected $usuarioFactory;
-
-	/**
-	 * Repositorio de usuarios
-	 * @see initializeAction()
-	 * @FLOW3\Inject
-	 * @var \F2\SLists\Domain\Repository\UsuarioRepository
-	 */
-	protected $usuarioRepository;
 
 	/**
 	 * @var \TYPO3\FLOW3\Utility\Environment
