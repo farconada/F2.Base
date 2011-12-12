@@ -27,7 +27,7 @@ class SwiftMailerService implements  MailerServiceInterface {
 				->setTo($aTo)
 				->setSubject($aSubject)
 				->setBody($aBody)
-                ->setContentType("text/html");;
+                ->setContentType($format);;
 		$this->mailer->send($message);
     }
 
