@@ -21,7 +21,7 @@ class SwiftMailerService implements  MailerServiceInterface {
 	 */
 	protected $mailer;
 
-    public function sendMail($aTo, $aFrom, $aSubject, $aBody) {
+    public function sendMail($aTo, $aFrom, $aSubject, $aBody,$format) {
         $message = new \TYPO3\SwiftMailer\Message();
 		$message->setFrom($aFrom)
 				->setTo($aTo)

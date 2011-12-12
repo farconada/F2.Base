@@ -9,5 +9,5 @@ namespace F2\Base\Service\Mail;
  */
  
 interface MailerServiceInterface {
-    public function sendMail($aTo,$aFrom,$aSubject,$aBody);
+    public function sendMail($aTo,$aFrom,$aSubject,$aBody,$format);
 }

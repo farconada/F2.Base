@@ -29,12 +29,13 @@ class GearmanMailerService implements  MailerServiceInterface {
             $this->gearmanClient->addServer($server['host'],$port);
         }
     }
-    public function sendMail($aTo, $aFrom, $aSubject, $aBody) {
+    public function sendMail($aTo, $aFrom, $aSubject, $aBody,$format) {
         $jsonData = json_encode(array(
             'To'        => $aTo,
             'From'      => $aFrom,
             'Subject'   => $aSubject,
-            'Body'      => $aBody
+            'Body'      => $aBody,
+            'Format'    => $format
         ));
         try{
             $this->gearmanClient->doBackground('F2API.mail',$jsonData);
